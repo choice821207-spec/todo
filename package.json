@@ -1,0 +1,18 @@
+{
+  "name": "todo",
+  "private": true,
+  "description": "설치나 빌드 없이 브라우저에서 바로 동작하는 할 일 관리 앱",
+  "scripts": {
+    "test": "node --test",
+    "lint": "eslint .",
+    "format": "prettier --write app.js style.css test eslint.config.mjs",
+    "format:check": "prettier --check app.js style.css test eslint.config.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
+    "jsdom": "^30.1.2",
+    "prettier": "^3.9.9"
+  }
+}

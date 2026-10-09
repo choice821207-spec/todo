@@ -1,4 +1,6 @@
 :root {
+  /* 체크박스, 스크롤바 같은 브라우저 기본 컨트롤도 테마를 따르게 한다 */
+  color-scheme: light dark;
   --bg: #f4f5f7;
   --card: #ffffff;
   --text: #1f2328;
@@ -35,7 +37,7 @@ body {
   padding: 40px 16px;
   background: var(--bg);
   color: var(--text);
-  font-family: "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', system-ui, sans-serif;
   line-height: 1.5;
 }
 
@@ -89,7 +91,13 @@ button.link:hover {
   color: var(--danger);
 }
 
-input[type="text"] {
+.toolbar .link:hover,
+.notice .link:hover,
+.backup .link:hover {
+  color: var(--accent);
+}
+
+input[type='text'] {
   width: 100%;
   min-width: 0;
   padding: 8px 12px;
@@ -98,8 +106,9 @@ input[type="text"] {
   background: transparent;
 }
 
-input[type="text"]:focus,
-button:focus-visible {
+input[type='text']:focus,
+button:focus-visible,
+.empty:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
@@ -113,10 +122,27 @@ button:focus-visible {
   flex-shrink: 0;
 }
 
+.save-error {
+  margin: 12px 0 0;
+  padding: 8px 12px;
+  border: 1px solid var(--danger);
+  border-radius: 8px;
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 8px;
+  font-size: 0.9rem;
+}
+
 .filters {
   display: flex;
   gap: 6px;
-  margin: 16px 0 8px;
 }
 
 .filters button {
@@ -144,10 +170,16 @@ button:focus-visible {
   border-bottom: 1px solid var(--border);
 }
 
-.todo-item input[type="checkbox"] {
+.todo-item .check {
+  display: flex;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.todo-item input[type='checkbox'] {
   width: 18px;
   height: 18px;
-  flex-shrink: 0;
+  margin: 0;
   accent-color: var(--accent);
   cursor: pointer;
 }
@@ -184,10 +216,43 @@ button:focus-visible {
   color: var(--danger);
 }
 
+.todo-item .actions [aria-disabled='true'] {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.todo-item .actions [aria-disabled='true']:hover {
+  border-color: var(--border);
+}
+
 .empty {
   margin: 24px 0;
   text-align: center;
   color: var(--muted);
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.notice span {
+  flex: 1;
+  min-width: 0;
+}
+
+.backup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 0.9rem;
 }
 
 .footer {
@@ -197,4 +262,40 @@ button:focus-visible {
   margin-top: 16px;
   font-size: 0.9rem;
   color: var(--muted);
+}
+
+/* 좁은 화면에서는 버튼을 내용 아랫줄로 내린다 */
+@media (max-width: 480px) {
+  .todo-item {
+    flex-wrap: wrap;
+  }
+
+  .todo-item .actions {
+    flex-basis: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* 터치 화면에서는 항목의 체크박스와 버튼을 44px 이상으로 키운다 */
+@media (any-pointer: coarse) {
+  .todo-item {
+    padding: 4px 0;
+  }
+
+  /* 여백을 음수 margin으로 상쇄해 배치는 그대로 두고 누르는 영역만 넓힌다 */
+  .todo-item .check {
+    padding: 10px;
+    margin: 0 -10px;
+  }
+
+  .todo-item input[type='checkbox'] {
+    width: 24px;
+    height: 24px;
+  }
+
+  .todo-item .actions button {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 6px 10px;
+  }
 }

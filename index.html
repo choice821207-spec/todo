@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="설치 없이 브라우저에서 바로 쓰는 할 일 목록. 추가, 수정, 순서 변경, 필터를 지원하고 목록은 브라우저에 저장됩니다.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15171c" media="(prefers-color-scheme: dark)">
   <title>할 일 목록</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,19 +21,38 @@
       <button type="submit" class="primary">추가</button>
     </form>
 
-    <div class="filters" role="group" aria-label="목록 필터">
-      <button type="button" data-filter="all">전체</button>
-      <button type="button" data-filter="active">진행 중</button>
-      <button type="button" data-filter="done">완료</button>
+    <p id="save-error" class="save-error" role="alert" hidden>
+      브라우저에 저장하지 못했습니다. 새로고침하면 변경 내용이 사라질 수 있습니다.
+    </p>
+
+    <div class="toolbar">
+      <div class="filters" role="group" aria-label="목록 필터">
+        <button type="button" data-filter="all">전체</button>
+        <button type="button" data-filter="active">진행 중</button>
+        <button type="button" data-filter="done">완료</button>
+      </div>
+      <button type="button" id="toggle-all" class="link">모두 완료</button>
     </div>
 
     <ul id="todo-list" class="todo-list"></ul>
-    <p id="empty" class="empty"></p>
+    <p id="empty" class="empty" role="status" tabindex="-1"></p>
+
+    <div id="notice" class="notice" hidden>
+      <span id="notice-text" role="status"></span>
+      <button type="button" id="undo">실행 취소</button>
+      <button type="button" id="notice-close" class="link">닫기</button>
+    </div>
 
     <footer class="footer">
-      <span id="count"></span>
+      <span id="count" role="status"></span>
       <button type="button" id="clear-done" class="link">완료 항목 삭제</button>
     </footer>
+
+    <div class="backup">
+      <button type="button" id="export" class="link">내보내기</button>
+      <button type="button" id="import" class="link">가져오기</button>
+      <input type="file" id="import-file" accept=".json,application/json" hidden>
+    </div>
   </main>
 
   <script src="app.js"></script>
