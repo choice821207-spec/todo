@@ -41,9 +41,7 @@ npx http-server
 
 ## 배포
 
-- **GitHub Pages**: `master` 브랜치의 루트에서 배포합니다. `git push` 하면 자동으로 반영됩니다.
-- **Vercel**: Git과 연동되어 있지 않으므로 수정 후 직접 배포합니다.
+`master` 브랜치에 `git push` 하면 두 곳 모두 자동으로 다시 배포됩니다.
 
-  ```bash
-  npx vercel deploy --prod
-  ```
+- **GitHub Pages**: `master` 브랜치의 루트에서 배포합니다.
+- **Vercel**: 프로젝트가 이 GitHub 리포지터리와 연결되어 있으며, `master`가 프로덕션 브랜치입니다.
